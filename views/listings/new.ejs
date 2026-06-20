@@ -1,0 +1,22 @@
+<%-layout("/layouts/boilerPlate")%>
+<body>
+    <h2>join us and make your path</h2>
+    <form action="/listings" method="POST">
+        <input type="text" name="listing[title]" id="" placeholder="Enter title">
+        <br>
+        <br>
+        <textarea type="text" name="listing[description]" id="" placeholder="Describe something.."></textarea>
+        <br>
+        <br>
+        <input type="text" name="listing[image]" id="" placeholder="attach img">
+        <br>
+        <br>
+        <input type="number" name="listing[price]" id="" placeholder="Enter Price">
+        <br>
+        <br>
+        <input type="text" name="listing[country]" id="" placeholder="Enter country">
+        <br><br>
+        <input type="text" name="listing[location]" id="" placeholder="Enter location">
+        <button>submit</button>
+    </form>
+</body>
