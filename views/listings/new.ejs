@@ -1,22 +1,79 @@
 <%-layout("/layouts/boilerPlate")%>
 <body>
-    <h2>join us and make your path</h2>
-    <form action="/listings" method="POST">
-        <input type="text" name="listing[title]" id="" placeholder="Enter title">
+  <div class="row">
+    <div class="col-8 offset-2">
         <br>
-        <br>
-        <textarea type="text" name="listing[description]" id="" placeholder="Describe something.."></textarea>
-        <br>
-        <br>
-        <input type="text" name="listing[image]" id="" placeholder="attach img">
-        <br>
-        <br>
-        <input type="number" name="listing[price]" id="" placeholder="Enter Price">
-        <br>
-        <br>
-        <input type="text" name="listing[country]" id="" placeholder="Enter country">
-        <br><br>
-        <input type="text" name="listing[location]" id="" placeholder="Enter location">
-        <button>submit</button>
-    </form>
+      <h2>Join Us</h2>
+      <form action="/listings" method="POST">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title </label>
+          <input
+            type="text"
+            name="listing[title]"
+            id="title"
+            placeholder="Enter catchy title"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            type="text"
+            name="listing[description]"
+            id="description"
+            placeholder="Describe something.."
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image Link</label>
+          <input
+            type="text"
+            name="listing[image]"
+            id="image"
+            class="form-control"
+            placeholder="attach img"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input
+            class="form-control"
+            type="number"
+            name="listing[price]"
+            id="price"
+            placeholder="$1200"
+          />
+        </div>
+        <div class="row">
+
+            <div class="mb-3 col-md-4">
+                <label for="country" class="form-label">Country</label>
+                <input
+                type="text"
+                name="listing[country]"
+                id="country"
+                placeholder="India"
+                class="form-control"
+                />
+            </div>
+            <div class="mb-3 col-md-8">
+                <label for="location" class="form-label">Location</label>
+                <input
+                type="text"
+                name="listing[location]"
+                id="location"
+                placeholder="Ahmedabad,Udaipur,...etc"
+                class="form-control"
+                />
+            </div>
+        </div>
+        <br />
+        <br />
+        <button class="btn btn-dark add-btn">submit</button>
+        <br />
+        <br />
+      </form>
+    </div>
+  </div>
 </body>
