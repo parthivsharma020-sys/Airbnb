@@ -78,3 +78,25 @@ text-decoration: none;
     background-color: #FF5A5F !important;
     border: none !important;
 }
+
+/* Edit page */
+
+.edit-btn{
+   background-color: #FF5A5F !important;
+    border: none !important;
+}
+
+
+/* show page */
+.show-img{
+    height:30vh ;
+    /* width: 50vw !important; */
+}
+.btns{
+    display: flex;
+
+}
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
