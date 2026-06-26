@@ -22,10 +22,7 @@ const listingSchema = new Schema({
     type: Number,
     required: true,
   },
-  location:{
-    type:String,
-    required:true,
-  },
+  location:String,
   country:String,
 });
 
