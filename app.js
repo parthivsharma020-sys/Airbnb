@@ -70,7 +70,10 @@ app.get(
 );
 
 // create route
-app.post("/listings",validateListing,wrapAsync(async (req, res, next) => {
+app.post(
+  "/listings",
+  validateListing,
+  wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -88,8 +91,11 @@ app.get(
 );
 
 // update routes
-app.put("/listings/:id",validateListing,  wrapAsync(async (req, res) => {
-     let { id } = req.params;
+app.put(
+  "/listings/:id",
+  validateListing,
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
     // console.log(req.body.listing);
     await Listing.findByIdAndUpdate(
       id,
