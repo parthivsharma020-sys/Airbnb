@@ -9,6 +9,8 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
+const session=require("express-session");
+const flash=require("connect-flash")
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -33,9 +35,29 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
+
+const sessionOption = {
+  secret: "mysupersecretstring",
+  resave: false,
+  saveUninitialized: true,
+  cookie:{
+    expires:Date.now()+7*24*60*60*1000,
+    maxAge:7*24*60*60*1000,
+  }
+};
+
+app.use(session(sessionOption));
+app.use(flash());
+
 app.get("/", (req, res) => {
   res.send("<h1>hello, WELCOME BUDDY  -parthiv</h1>");
 });
+
+app.use((req,res,next)=>{
+  res.locals.success=req.flash("success");
+  res.locals.error=req.flash("error");
+  next();
+})
 
 app.use("/listings", listings);
 app.use("/listings/:id", reviews);
