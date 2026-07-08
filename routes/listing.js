@@ -18,15 +18,17 @@ const validateListing = (req, res, next) => {
 };
 
 // index Routes
+
 router.get(
   "/",
-  wrapAsync(async (req, res) => {
+  wrapAsync(async (req, res) => { 
     const allListings = await Listing.find();
     res.render("./listings/index.ejs", { allListings });
   }),
 );
 
 // NEW ROUTES
+
 router.get("/new", (req, res) => {
   res.render("./listings/new.ejs");
 });
