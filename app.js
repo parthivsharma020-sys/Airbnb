@@ -11,6 +11,7 @@ const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const {isLoggedIn}=require("./middleware.js");
 
 //  for authentication LOCAL-OTH
 const passport = require("passport");
@@ -67,6 +68,7 @@ app.get("/", (req, res) => {
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser=req.user;
   next();
 });
 
