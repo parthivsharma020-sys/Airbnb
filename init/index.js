@@ -1,4 +1,4 @@
-const express=require("express");
+const express = require("express");
 
 const mongoose = require("mongoose");
 const initData = require("./data.js");
@@ -19,6 +19,10 @@ async function main() {
 }
 const initDB = async () => {
   await Listing.deleteMany({});
+  initData.data = await initData.data.map((obj) => ({
+    ...obj,
+    owner: "6a546851ac61ae9a895b4213",
+  }));
   await Listing.insertMany(initData.data);
   console.log("Data was saved in DATABASE");
 };
