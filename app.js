@@ -62,7 +62,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get("/", (req, res) => {
-  res.send("<h1>hello, WELCOME BUDDY  -parthiv</h1>");
+  res.send("<h1>hello, WELCOME  -parthiv</h1>");
 });
 
 app.use((req, res, next) => {

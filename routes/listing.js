@@ -7,7 +7,7 @@ const Listing = require("../models/listing.js");
 const { listingSchema, reviewSchema } = require("../schema.js");
 const { isLoggedIn, isOwner ,validateListing} = require("../middleware.js");
 
-// index Routes
+// index Route
 
 router.get(
   "/",
@@ -17,13 +17,13 @@ router.get(
   }),
 );
 
-// NEW ROUTES
+// NEW ROUTE
 
 router.get("/new", isLoggedIn, (req, res) => {
   res.render("./listings/new.ejs");
 });
 
-// show routes
+// show route
 
 router.get(
   "/:id",
@@ -73,7 +73,7 @@ router.get(
   }),
 );
 
-// update routes
+// update route
 router.put(
   "/:id",
   isLoggedIn,
@@ -94,7 +94,7 @@ router.put(
 
 // DELETE REVIEW ROUTE
 
-// delete routes
+// delete route
 router.delete(
   "/:id",
   isLoggedIn,
