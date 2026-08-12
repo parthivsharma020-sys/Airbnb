@@ -1,4 +1,5 @@
 const Listing = require("./models/listing");
+const Review = require("./models/review");
 const { listingSchema, reviewSchema } = require("./schema");
 const ExpressError = require("./utils/ExpressError");
 
@@ -9,7 +10,7 @@ module.exports.isLoggedIn = (req, res, next) => {
     req.flash("error", "you must be logged in tot create listing");
     return res.redirect("/login");
   }
-  next();
+    next();
 };
 
 module.exports.saveRedirectUrl = (req, res, next) => {
@@ -48,4 +49,14 @@ module.exports.validateReview = (req, res, next) => {
   } else {
     next();
   }
+};
+
+module.exports.isReviewAuthor = async (req, res, next) => {
+  let {id, reviewId } = req.params;
+  let review = await Review.findById(reviewId);
+  if (!review.author._id.equals(res.locals.currUser._id)) {
+    req.flash("error", "Not valid credential to perform");
+    return res.redirect(`/listings/${id}`);
+  }
+  next();
 };
