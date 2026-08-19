@@ -1,7 +1,7 @@
 <%- layout("/layouts/boilerPlate") %>
 <body>
    
-    <h3>All Listings</h3>
+    <!-- <h3>All Listings</h3> -->
     <!-- <form action="/listings/new" method="GET">
         <button>CREATE</button>
     </form> -->
@@ -10,7 +10,7 @@
         <% for (let listing of allListings){ %>
           <a href="/listings/<%= listing._id %>" class="listing-link">
               <div class="card col listing-card">
-                  <img src="<%= listing.image %>" class="card-img-top" style=" height: 20rem" alt="listing_img">
+                  <img src="<%= listing.image.url %>" class="card-img-top" style=" height: 20rem" alt="listing_img">
                   <div class="card-img-overlay"></div>
                   <div class="card-body">
                       <p class="card-text"> <b><%= listing.title %></b>

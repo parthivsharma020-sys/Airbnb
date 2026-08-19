@@ -1,3 +1,9 @@
+if(process.env.NODE_ENV != "production"){
+  require("dotenv").config();
+}
+
+require("dotenv").config();
+// console.log(process.env.SECRET)
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -11,7 +17,7 @@ const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 const session = require("express-session");
 const flash = require("connect-flash");
-const {isLoggedIn}=require("./middleware.js");
+const { isLoggedIn } = require("./middleware.js");
 
 //  for authentication LOCAL-OTH
 const passport = require("passport");
@@ -61,14 +67,19 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use((req, res, next) => {
+  res.locals.maptilerKey = process.env.MAPTILER_API_KEY;
+  next();
+});
+
 app.get("/", (req, res) => {
-  res.send("<h1>hello, WELCOME  -parthiv</h1>");
+  res.redirect("/login");
 });
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser=req.user;
+  res.locals.currUser = req.user;
   next();
 });
 
@@ -83,7 +94,7 @@ app.use((req, res, next) => {
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id", reviewRouter);
-app.use("/",userRouter)
+app.use("/", userRouter);
 
 app.all("/{*path}", (req, res, next) => {
   next(new ExpressError(404, "page Not Found!"));
