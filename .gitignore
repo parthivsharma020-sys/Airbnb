@@ -1,3 +1,8 @@
-node_modules
+.env
+node_modules/
 classroom
 uploads
+# parthivsharma020_db_user
+# MMAfujmZQhhgCgVM   
+# mongodb+srv://parthivsharma020_db_user:<db_password>@cluster0.rk7ti4v.mongodb.net/?appName=Cluster0 
+# mongodb+srv://parthivsharma020_db_user:MMAfujmZQhhgCgVM@cluster0.rk7ti4v.mongodb.net/?appName=Cluster0 

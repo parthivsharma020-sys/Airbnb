@@ -1,9 +1,9 @@
-if(process.env.NODE_ENV != "production"){
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
-require("dotenv").config();
-// console.log(process.env.SECRET)
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -16,6 +16,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const { isLoggedIn } = require("./middleware.js");
 
@@ -28,7 +29,8 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then((res) => {
@@ -37,7 +39,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
@@ -48,8 +50,20 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 
+const store =MongoStore.default.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+store.on("error", (err) => {
+  console.log("ERROR IS MONGO SESSION :", err);
+});
+
 const sessionOption = {
-  secret: "mysupersecretstring",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -67,10 +81,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) => {
-  res.locals.maptilerKey = process.env.MAPTILER_API_KEY;
-  next();
-});
+// app.use((req, res, next) => {
+//   res.locals.maptilerKey = process.env.MAPTILER_API_KEY;
+//   next();
+// });
 
 app.get("/", (req, res) => {
   res.redirect("/login");
